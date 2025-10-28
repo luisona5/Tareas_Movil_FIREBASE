@@ -1,5 +1,8 @@
 // import { SQLiteTodoDataSource } from '@/src/data/datasources/SQLiteTodoDtaSource';
 // import { TodoRepositorylmpl } from '@/src/data/repositories/TodoRepositorylmpl';
+import { FirebaseTodoDataSource } from '@/src/data/datasources/FirebaseTodoDataSource';
+//import { FirebaseTodoRepositoryImpl } from '@/src/data/repositories/TodoRepositoryFirebaseImpl';
+import { TodoRepositoryFirebaseImpl } from '../data/repositories/TodoRepositoryFirebaseImpl';
 import { GetAllTodo } from '@/src/domain/usecases/GetAllTodo';
 import { CreateTodo } from '@/src/domain/usecases/CreateTodo';
 import { ToggleTodo } from '@/src/domain/usecases/ToogleTodo';
@@ -7,8 +10,7 @@ import { DeleteTodos } from '@/src/domain/usecases/DeleteTodos';
 
 // cuando cambies de data source o repository, solo lo haces aquí
 
-import { FirebaseTodoDataSource } from '../data/datasources/FirebaseTodoDataSource';
-import { FirebaseTodoRepositoryImpl } from '@/data/repositories/TodoRepositoryFirebaseImpl';
+
 
 // 🟢 Singleton para mantener una sola instancia
 class DIContainer {
@@ -19,7 +21,7 @@ class DIContainer {
 
 
   // private _repository: TodoRepositorylmpl | null = null;
-  private _repository: FirebaseTodoRepositoryImpl | null = null;
+  private _repository: TodoRepositoryFirebaseImpl | null = null;
 
   private constructor() {}
 
@@ -33,7 +35,7 @@ class DIContainer {
   async initialize(): Promise<void> {
     this._dataSource = new FirebaseTodoDataSource();
     await this._dataSource.initialize();
-    this._repository = new FirebaseTodoRepositoryImpl(this._dataSource);
+    this._repository = new TodoRepositoryFirebaseImpl(this._dataSource);
   }
 
   // 🟢 Use Cases - cada uno recibe el repository

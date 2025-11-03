@@ -5,17 +5,25 @@ import { container } from "@/src/di/container";
 import { Todo } from "@/src/domain/entities/todo";
 import { useCallback, useEffect, useState } from "react";
 import { Alert } from "react-native";
+import { useAuth } from "./useAuth"; // ← NUEVO: importar useAuth
  
 export const useTodos = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { user } = useAuth(); // ← NUEVO: obtener usuario actual
  
   const loadTodos = useCallback(async () => {
+    if (!user) { 
+      setTodos([]); 
+      setLoading(false);
+       return; 
+      }
+
     try {
       setLoading(true);
       setError(null);
-      const result = await container.getAllTodos.execute();
+      const result = await container.getAllTodos.execute(user.id);
       setTodos(result);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Error desconocido";
@@ -24,15 +32,25 @@ export const useTodos = () => {
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [user]);// ← MODIFICADO: agregar user como dependencia
  
   useEffect(() => {
     loadTodos();
   }, [loadTodos]);
  
   const addTodo = async (title: string): Promise<boolean> => {
+    if (!user) { 
+      Alert.alert("Error", "Debes estar autenticado para agregar tareas"); 
+      return false;
+    }
+
+
+
     try {
-      const newTodo = await container.createTodo.execute({ title });
+      const newTodo = await container.createTodo.execute({
+         title, 
+         userId: user.id
+         });
       setTodos([newTodo, ...todos]);
       return true;
     } catch (err) {

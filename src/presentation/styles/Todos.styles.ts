@@ -128,6 +128,46 @@ export const createStyles = (theme: TodosTheme) =>
       marginTop: 10,
       fontSize: 14,
     },
+    header: {
+      flexDirection: "row",
+      alignItems: "center",
+      padding: 10,
+      marginBottom: 10,
+      backgroundColor: theme.primary,
+      borderRadius: 8,
+    },
+    userAvatarPlaceholder: {
+      width: 40,
+      height: 40,
+      borderRadius: 20,
+      marginRight: 10,
+      backgroundColor: theme.primary,
+      justifyContent: "center",
+      alignItems: "center",
+      borderWidth: 1,
+      borderColor: theme.primaryText,
+    },
+    userAvatarText: {
+      color: theme.primaryText,
+      fontSize: 18,
+      fontWeight: "bold",
+    },
+    userName: {
+      flex: 1,
+      color: theme.primaryText,
+      fontSize: 16,
+      fontWeight: "bold",
+    },
+    logoutButton: {
+      paddingVertical: 6,
+      paddingHorizontal: 10,
+      backgroundColor: theme.surface,
+      borderRadius: 8,
+    },
+    logoutText: {
+      color: theme.text,
+      fontWeight: "bold",
+    },
   });
  
 /**
@@ -157,3 +197,4 @@ export const defaultDarkTheme: TodosTheme = {
   border: "#38383a",
   placeholder: "#666666",
 };
+

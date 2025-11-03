@@ -16,6 +16,10 @@ export class CreateTodo {
             throw new Error("El titulo es demasiado largo");
         }   
 
+        if(!data.userId){
+            throw new Error("User ID is required");
+        }
+
         return await this.repository.create(data);
     }
 }   

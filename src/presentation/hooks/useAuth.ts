@@ -28,11 +28,11 @@ export const useAuth = () => {
     try {
       setLoading(true);
       setError(null);
-      const newUser = await container.registerUser.execute({
+      const newUser = await container.registerUser.execute(
         email,
         password,
         displayName
-      });
+      );
       setUser(newUser);
       return true;
     } catch (err: any) {

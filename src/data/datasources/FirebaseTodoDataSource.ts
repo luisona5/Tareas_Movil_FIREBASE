@@ -1,7 +1,15 @@
-import { collection, addDoc, getDocs, doc, getDoc, updateDoc, deleteDoc, query,
-orderBy,
-where, // ← NUEVO: para filtrar por userId
-Timestamp,
+import { 
+  collection, 
+  addDoc, 
+  getDocs, 
+  doc, 
+  getDoc, 
+  updateDoc, 
+  deleteDoc, 
+  query,
+  orderBy,
+  where, // ← NUEVO: para filtrar por userId
+  Timestamp,
 } from "firebase/firestore";
 import { db } from "@/Firebaseconfig";
 import { Todo } from "@/src/domain/entities/todo";

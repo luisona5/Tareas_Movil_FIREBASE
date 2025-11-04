@@ -14,6 +14,7 @@ export const useTodos = () => {
   const { user } = useAuth(); // ← NUEVO: obtener usuario actual
  
   const loadTodos = useCallback(async () => {
+    //<- NUEVO: solo cargar si hay usuario autenticado
     if (!user) { 
       setTodos([]); 
       setLoading(false);
@@ -23,12 +24,16 @@ export const useTodos = () => {
     try {
       setLoading(true);
       setError(null);
+      // <- MODIFICADO: pasar user.id 
       const result = await container.getAllTodos.execute(user.id);
       setTodos(result);
+
     } catch (err) {
+      // Mostrar el error en consola para diagnóstico
+      console.error("Error cargando todos:", err);
       const message = err instanceof Error ? err.message : "Error desconocido";
       setError(message);
-      Alert.alert("Error", "No se pudieron cargar las tareas");
+      Alert.alert("Error", message || "No se pudieron cargar las tareas");
     } finally {
       setLoading(false);
     }
@@ -49,10 +54,11 @@ export const useTodos = () => {
     try {
       const newTodo = await container.createTodo.execute({
          title, 
-         userId: user.id
+         userId: user.id,
          });
       setTodos([newTodo, ...todos]);
       return true;
+      
     } catch (err) {
       const message =
         err instanceof Error ? err.message : "Error al agregar tarea";

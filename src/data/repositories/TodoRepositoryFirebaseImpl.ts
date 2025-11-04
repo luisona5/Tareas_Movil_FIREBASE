@@ -1,5 +1,5 @@
+import { CreateTodoDTO, Todo, UpdateTodoDTO } from "@/src/domain/entities/todo";
 import { TodoRepository } from "@/src/domain/repositories/TodoRepository";
-import { Todo, CreateTodoDTO, UpdateTodoDTO } from "@/src/domain/entities/todo";
 import { FirebaseTodoDataSource } from "../datasources/FirebaseTodoDataSource";
 
 // 🌐 EXACTAMENTE LA MISMA ESTRUCTURA que antes
@@ -9,7 +9,7 @@ export class TodoRepositoryFirebaseImpl implements TodoRepository {
 
   // ← MODIFICADO: ahora recibe userId
   async getAll(userId: string): Promise<Todo[]> {
-    return await this.dataSource.getAllTodos(userId);
+    return await this.dataSource.getAllTodos( userId );
   }
 
   async getById(id: string): Promise<Todo | null> {

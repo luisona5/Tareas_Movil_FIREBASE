@@ -1,5 +1,9 @@
 import { AuthRepository } from "../repositories/AuthRepository"; 
-import { User } from "../entities/User"; export class RegisterUser { 
+import { User } from "../entities/User"; 
+
+
+
+export class RegisterUser { 
     constructor(private authRepository: AuthRepository) {} 
 
 

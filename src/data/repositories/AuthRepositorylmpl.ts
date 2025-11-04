@@ -12,13 +12,13 @@ export class AuthRepositorylmpl implements AuthRepository {
   displayName: string
 ): Promise<User> {
   // CORRECCIÓN: Pasar un único objeto como argumento
-  return this.dataSource.register({ email, password, displayName });
+  return this.dataSource.register( email, password, displayName );
 }
 
 
   async login(email: string, password: string): Promise<User> {
     return this.dataSource.login(email, password);
-  }
+  } 
 
   async logout(): Promise<void> {
     return this.dataSource.logout();

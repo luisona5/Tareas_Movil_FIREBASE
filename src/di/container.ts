@@ -41,13 +41,29 @@ class DIContainer {
     return DIContainer.instance;
   }
 
-  async initialize(): Promise<void> {
+  
+
+  
+
+// ===== NUEVOS DE AUTH ===== (AGREGAR) 
+private _authDataSource?: FirebaseAuthDataSource; 
+private _authRepository?: AuthRepository; 
+private _registerUser?: RegisterUser; 
+private _loginUser?: LoginUser; 
+private _logoutUser?: LogoutUser;
+private _getCurrentUser?: GetCurrentUser; 
+// ... método initialize existente (NO BORRAR)
+
+async initialize(): Promise<void> {
     this._dataSource = new FirebaseTodoDataSource();
     await this._dataSource.initialize();
     this._repository = new TodoRepositoryFirebaseImpl(this._dataSource);
-  }
 
-  // 🟢 Use Cases - cada uno recibe el repository
+    this._authDataSource = new FirebaseAuthDataSource();
+
+  }
+// ===== GETTERS EXISTENTES DE TODOS === (NO BORRAR)
+// 🟢 Use Cases - cada uno recibe el repository
   get getAllTodos(): GetAllTodo {
     if (!this._repository) throw new Error('Container not initialized');
     return new GetAllTodo(this._repository);
@@ -67,16 +83,6 @@ class DIContainer {
     if (!this._repository) throw new Error('Container not initialized');
     return new DeleteTodos(this._repository);
   }
-// ===== NUEVOS DE AUTH ===== (AGREGAR) 
-private _authDataSource?: FirebaseAuthDataSource; 
-private _authRepository?: AuthRepository; 
-private _registerUser?: RegisterUser; 
-private _loginUser?: LoginUser; 
-private _logoutUser?: LogoutUser;
-private _getCurrentUser?: GetCurrentUser; 
-// ... método initialize existente (NO BORRAR)
-// ===== GETTERS EXISTENTES DE TODOS === (NO BORRAR)
-// ... mantén todos los getters existentes ...
 
 // ===== NUEVOS GETTERS DE AUTH === (AGREGAR)
 get authDataSource(): FirebaseAuthDataSource {

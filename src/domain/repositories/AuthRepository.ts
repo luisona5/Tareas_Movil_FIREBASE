@@ -27,3 +27,6 @@ export interface AuthRepository {
         callback: (user: User | null) => void
     
     ): () => void; }
+
+    // ← NUEVO: actualizar displayName del usuario
+
